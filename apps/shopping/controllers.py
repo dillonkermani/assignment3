@@ -38,14 +38,21 @@ url_signer = URLSigner(session)
 def index():
     return dict(
         # For example...
-        load_data_url = URL('load_data'),
-        # Add other things here.
+        load_products_url = URL('load_products'),
+        add_product_url = URL('add_product'),
+        delete_product_url = URL('delete_product'),
+        purchase_product_url = URL('purchase_product'),
     )
 
-@action('load_data')
-@action.uses(db, auth.user)
-def load_data():
-    # Complete.
-    return dict()
 
-# You can add other controllers here.
+
+@action('load_products')
+@action.uses(db, auth.user)
+def load_products():
+    rows = [
+        dict(product_name="Product 1", purchased=False),
+        dict(product_name="Product Two", purchased=False),
+    ]
+    return dict(rows=rows)
+
+
