@@ -18,4 +18,11 @@ def get_time():
 #    Field('product_name', requires=IS_NOT_EMPTY()),
 #    )
 
+# Define your table below
+db.define_table('product',
+    Field('product_name', requires=IS_NOT_EMPTY()),
+    Field('purchased', 'boolean', default=False),
+    Field('user_email', default=get_user_email),            
+    )
+
 db.commit()
