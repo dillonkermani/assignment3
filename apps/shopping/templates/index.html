@@ -14,13 +14,13 @@
   <div class="container">
     <table class="table is-fullwidth is-striped">
       <tr class="add-row">
-        <td class="is-narrow"><i class="is-size-2 fa-solid fa-plus-square has-text-success add-item"></i></td>
-        <td><input class="input add-item" type="text" name="new_item"></td>
+        <td class="is-narrow"><button class="button" @click="add_product"><i class="is-size-2 fa-solid fa-plus-square has-text-success add-item"></i></button></td>
+        <td><input class="input add-item" type="text" name="new_item" v-model="new_product" placeholder="Product Name"></td>
         <td class="is-narrow"></td>
       </tr>
-      <tr class="item-row">
+      <tr class="item-row" v-for="product in products">
         <td class="check is-narrow"><input type="checkbox"></td>
-        <td class="item"></td>
+        <td class="item">{{product.name}}</td>
         <td class="trash is-narrow"><i class="trash has-text-danger fa-solid fa-trash-can"></i></td>
       </tr>
     </table>
