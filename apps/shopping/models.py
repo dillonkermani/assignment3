@@ -19,10 +19,10 @@ def get_time():
 #    )
 
 # Define your table below
-db.define_table('product',
-    Field('product_name', requires=IS_NOT_EMPTY()),
+db.define_table('products',
+    Field('name', requires=IS_NOT_EMPTY()),
     Field('purchased', 'boolean', default=False),
-    Field('user', default=get_user_email),            
+    Field('user_email', default=get_user_email),            
     )
 
 db.commit()

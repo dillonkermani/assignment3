@@ -49,10 +49,15 @@ def index():
 @action('load_products')
 @action.uses(db, auth.user)
 def load_products():
-    rows = [
-        dict(product_name="Product 1", purchased=False),
-        dict(product_name="Product Two", purchased=False),
-    ]
-    return dict(rows=rows)
+    rows = db(db.products.user_email == get_user_email()).select().as_list()
+    return dict(products=rows)
+
+@action('add_product', method='POST')
+@action.uses(db, session, auth.user)
+def add_product():
+    name = request.json.get('name')
+    purchased = request.json.get('purchased')
+    id = db.products.insert(name=name, purchased=purchased)
+    return dict(id=id)
 
 
