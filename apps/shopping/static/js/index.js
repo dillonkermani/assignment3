@@ -31,7 +31,7 @@ app.data = {
             }).then(function (r) {
                 // This is time 2, much later, when the server answer comes back. 
                 console.log("Got the id: " + r.data.id);
-                self.sightings.push({
+                self.products.push({
                     id: r.data.id,
                     name: self.new_product_name,
                     purchased: false,
