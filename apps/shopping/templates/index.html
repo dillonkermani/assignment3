@@ -21,7 +21,7 @@
       <tr class="item-row" v-for="p in products">
         <td class="check is-narrow"><input type="checkbox"></td>
         <td class="item">{{p.name}}</td>
-        <td class="trash is-narrow"><i class="trash has-text-danger fa-solid fa-trash-can"></i></td>
+        <td class="trash is-narrow"><button class="button" @click="delete_product(p.name)"><i class="trash has-text-danger fa-solid fa-trash-can"></i></button></td>
       </tr>
     </table>
   </div>

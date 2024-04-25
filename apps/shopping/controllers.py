@@ -60,4 +60,10 @@ def add_product():
     id = db.products.insert(name=name, purchased=purchased)
     return dict(id=id)
 
+@action('delete_product', method='POST')
+@action.uses(db, session, auth.user)
+def delete_product():
+    id = request.json.get('id')
+    db(db.products.id == id).delete()
+    return "ok"
 

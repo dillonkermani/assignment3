@@ -15,7 +15,7 @@ app.data = {
     methods: {
         find_product_idx: function(name) {
             // Finds the index of an item in the list.
-            for (let i = 0; i < this.sightings.length; i++) {
+            for (let i = 0; i < this.products.length; i++) {
                 if (this.products[i].name === name) {
                     return i;
                 }
@@ -41,13 +41,19 @@ app.data = {
             // This happens right after time 1, before time 2. 
             console.log("I am a happy coder"); 
         },
-        delete_product: function(id) {
+        delete_product: function(name) {
             let self = this;
+            let idx = self.find_product_idx(name); // Find the index of the product by name
+            if (idx === null) {
+                console.log("Product not found: " + name);
+                return;
+            }
+            let product_id = self.products[idx].id; // Get the product's id
             axios.post(delete_product_url, {
-                id: self.products[id].id,
+                id: product_id, // Use the product's id here
             }).then(function (r) {
-                self.products.splice(id, 1); // Removes the product from sight.
-                console.log("Deleted product " + id);
+                self.products.splice(idx, 1); // Removes the product from sight.
+                console.log("Deleted product " + name);
                 console.log("Updated products: " + self.products);
             });
         },
