@@ -72,7 +72,11 @@ app.data = {
             }).then(function (r) {
                 let purchasedProduct = { ...self.products[idx], purchased: currentStatus }; // Create a new object
                 self.products.splice(idx, 1); // Remove the product from its current position
-                self.products.push(purchasedProduct); // Add the product back at the end of the array
+                if (currentStatus == false) {
+                    self.products.unshift(purchasedProduct); // Add the product at the beginning of the array
+                } else {
+                    self.products.push(purchasedProduct); // Add the product back at the end of the array
+                }
                 console.log("Toggled purchase status for product " + name);
             });
         },
