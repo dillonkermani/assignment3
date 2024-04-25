@@ -31,7 +31,7 @@ app.data = {
             }).then(function (r) {
                 // This is time 2, much later, when the server answer comes back. 
                 console.log("Got the id: " + r.data.id);
-                self.products.push({
+                self.products.unshift({
                     id: r.data.id,
                     name: self.new_product_name,
                     purchased: false,
@@ -41,6 +41,17 @@ app.data = {
             // This happens right after time 1, before time 2. 
             console.log("I am a happy coder"); 
         },
+        delete_product: function(id) {
+            let self = this;
+            axios.post(delete_product_url, {
+                id: self.products[id].id,
+            }).then(function (r) {
+                self.products.splice(id, 1); // Removes the product from sight.
+                console.log("Deleted product " + id);
+                console.log("Updated products: " + self.products);
+            });
+        },
+
     },
 };
 

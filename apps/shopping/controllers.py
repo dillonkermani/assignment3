@@ -49,7 +49,7 @@ def index():
 @action('load_products')
 @action.uses(db, auth.user)
 def load_products():
-    rows = db(db.products.user_email == get_user_email()).select().as_list()
+    rows = db(db.products.user_email == get_user_email()).select(orderby=~db.products.id).as_list()
     return dict(products=rows)
 
 @action('add_product', method='POST')
