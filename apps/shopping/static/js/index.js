@@ -57,6 +57,25 @@ app.data = {
                 console.log("Updated products: " + self.products);
             });
         },
+        toggle_purchase: function(name) {
+            let self = this;
+            let idx = self.find_product_idx(name);
+            if (idx === null) {
+                console.log("Product not found: " + name);
+                return;
+            }
+            let product_id = self.products[idx].id;
+            let currentStatus = self.products[idx].purchased;
+            axios.post(toggle_purchase_url, {
+                id: product_id,
+                status: currentStatus,
+            }).then(function (r) {
+                let purchasedProduct = { ...self.products[idx], purchased: currentStatus }; // Create a new object
+                self.products.splice(idx, 1); // Remove the product from its current position
+                self.products.push(purchasedProduct); // Add the product back at the end of the array
+                console.log("Toggled purchase status for product " + name);
+            });
+        },
 
     },
 };

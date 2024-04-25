@@ -19,7 +19,7 @@
         <td class="is-narrow"></td>
       </tr>
       <tr class="item-row" v-for="p in products">
-        <td class="check is-narrow"><input type="checkbox"></td>
+        <td class="check is-narrow"><input type="checkbox" v-model="p.purchased" @change="toggle_purchase(p.name)"></td>
         <td class="item">{{p.name}}</td>
         <td class="trash is-narrow"><button class="button" @click="delete_product(p.name)"><i class="trash has-text-danger fa-solid fa-trash-can"></i></button></td>
       </tr>
@@ -35,6 +35,7 @@
   let load_products_url = "[[=XML(load_products_url)]]";
   let add_product_url = "[[=XML(add_product_url)]]";
   let delete_product_url = "[[=XML(delete_product_url)]]";
+  let toggle_purchase_url = "[[=XML(toggle_purchase_url)]]";
 </script>
 <script src="js/index.js"></script>
 [[end]]

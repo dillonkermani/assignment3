@@ -41,7 +41,7 @@ def index():
         load_products_url = URL('load_products'),
         add_product_url = URL('add_product'),
         delete_product_url = URL('delete_product'),
-        purchase_product_url = URL('purchase_product'),
+        toggle_purchase_url = URL('toggle_purchase'),
     )
 
 
@@ -49,7 +49,7 @@ def index():
 @action('load_products')
 @action.uses(db, auth.user)
 def load_products():
-    rows = db(db.products.user_email == get_user_email()).select(orderby=~db.products.id).as_list()
+    rows = db(db.products.user_email == get_user_email()).select(orderby=(db.products.purchased, ~db.products.id)).as_list()
     return dict(products=rows)
 
 @action('add_product', method='POST')
@@ -67,3 +67,9 @@ def delete_product():
     db(db.products.id == id).delete()
     return "ok"
 
+@action('toggle_purchase', method='POST')
+@action.uses(db, session, auth.user)
+def toggle_purchase():
+    id = request.json.get('id')
+    status = request.json.get('status')
+    db(db.products.id == id).update(purchased=status)
